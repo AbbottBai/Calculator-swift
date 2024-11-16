@@ -8,6 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var output = ""
+    
+    @State private var current_number: String = ""
+    @State private var total_numbers: [String] = []
+    @State private var equal_pressed: Bool = false
+
+    @State private var sign: [String] = []
+
+    func number_pressed(input_number: String) {
+        current_number += input_number
+        output += input_number
+        print("\(input_number) pressed")
+    }
+
+    func sign_pressed(current_sign: String) {
+        sign.append(current_sign)
+        total_numbers.append(current_number)
+        current_number = ""
+        output += current_sign
+        print(total_numbers)
+        print(sign)
+        print("sign pressed log successfully executed")
+    }
+
     var body: some View {
         VStack {
             HStack{
@@ -160,32 +184,6 @@ struct ContentView: View {
         }
     }
 }
-
-
-var current_number: String = ""
-var total_numbers: [String] = []
-var equal_pressed: Bool = false
-var output: String = ""
-
-var sign: [String] = []
-
-func number_pressed(input_number: String) {
-    current_number += input_number
-    output += input_number
-    print("\(input_number) pressed")
-}
-
-func sign_pressed(current_sign: String) {
-    sign.append(current_sign)
-    total_numbers.append(current_number)
-    current_number = ""
-    output += current_sign
-    print(total_numbers)
-    print(sign)
-    print("sign pressed log successfully executed")
-}
-
-
 
 
 #Preview {
