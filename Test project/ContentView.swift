@@ -12,7 +12,6 @@ struct ContentView: View {
     
     @State private var current_number: String = ""
     @State private var total_numbers: [String] = []
-    @State private var equal_pressed: Bool = false
 
     @State private var sign: [String] = []
 
@@ -30,6 +29,20 @@ struct ContentView: View {
         print(total_numbers)
         print(sign)
         print("sign pressed log successfully executed")
+    }
+    
+    func all_clear() {
+        sign = []
+        total_numbers = []
+        output = ""
+        current_number = ""
+    }
+    
+    func calculate() {
+        output = ""
+        if sign.isEmpty {
+            output += total_numbers.joined()
+        }
     }
 
     var body: some View {
@@ -162,6 +175,17 @@ struct ContentView: View {
             }
             
             HStack{
+                Button("AC") {
+                    all_clear()
+                    print("AC pressed")
+                }
+                    .frame(width:100, height:100)
+                    .background(Color.red)
+                    .cornerRadius(30)
+                    .font(.system(size:30, weight:.bold))
+                    .foregroundColor(.black)
+                          
+                
                 Button("%") {
                     sign_pressed(current_sign: "%")
                 }
