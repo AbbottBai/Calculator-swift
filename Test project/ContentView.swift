@@ -12,8 +12,9 @@ struct ContentView: View {
     
     @State private var current_number: String = ""
     @State private var total_numbers: [String] = []
-
-    @State private var sign: [String] = []
+    @State private var sign: [Character] = []
+    @State private var answer: Int = 0
+    @State private var total_numbers_int: [Int] = []
 
     func number_pressed(input_number: String) {
         current_number += input_number
@@ -21,11 +22,11 @@ struct ContentView: View {
         print("\(input_number) pressed")
     }
 
-    func sign_pressed(current_sign: String) {
+    func sign_pressed(current_sign: Character) {
         sign.append(current_sign)
         total_numbers.append(current_number)
         current_number = ""
-        output += current_sign
+        output += String(current_sign)
         print(total_numbers)
         print(sign)
         print("sign pressed log successfully executed")
@@ -40,8 +41,37 @@ struct ContentView: View {
     
     func calculate() {
         output = ""
+        total_numbers.append(current_number)
         if sign.isEmpty {
+            output = ""
             output += total_numbers.joined()
+        } else {
+            total_numbers_int = total_numbers.compactMap {Int($0)}
+            print("total numbers are \(total_numbers_int)")
+            for i in sign.indices {
+                if i == 0 {
+                    if sign[0] == "+" {
+                        answer = total_numbers_int[0] + total_numbers_int[1]
+                    } else if sign[0] == "-" {
+                        answer = total_numbers_int[0] - total_numbers_int[1]
+                    } else if sign[0] == "X" {
+                        answer = total_numbers_int[0] * total_numbers_int[1]
+                    } else {
+                        answer = total_numbers_int[0] / total_numbers_int[1]
+                    }
+                } else {
+                    if sign[i] == "+" {
+                        answer = answer + total_numbers_int[i + 1]
+                    } else if sign[i] == "-" {
+                        answer = answer - total_numbers_int[i + 1]
+                    } else if sign[i] == "X" {
+                        answer = answer * total_numbers_int[i + 1]
+                    } else {
+                        answer = answer / total_numbers_int[i + 1]
+                    }
+                }
+            }
+            output = String(answer)
         }
     }
 
@@ -196,7 +226,7 @@ struct ContentView: View {
                     .foregroundColor(.black)
                 
                 Button("=") {
-                    sign_pressed(current_sign: "=")
+                    calculate()
                 }
                 .frame(width:100,height:100)
                 .background(Color.red)
