@@ -10,11 +10,19 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
+            HStack{
+                Text(output)
+                    .padding()
+                    .background(Color.white)
+                    .font(.system(size:50, weight:.bold))
+                    .shadow(radius:5)
+                    .cornerRadius(30)
+            }
             
             HStack {
                 Button("1") {
-                    current_number += "1"
-                    print("1 pressed")}
+                    number_pressed(input_number: "1")
+                }
                     .frame(width: 100, height: 100)
                     .background(Color.green)
                     .cornerRadius(30)
@@ -22,8 +30,7 @@ struct ContentView: View {
                     .foregroundColor(.black)
                     
                 Button("2") {
-                    current_number += "2"
-                    print("2 pressed")
+                    number_pressed(input_number: "2")
                 }
                     .frame(width: 100, height: 100)
                     .background(Color.green)
@@ -32,8 +39,7 @@ struct ContentView: View {
                     .foregroundColor(.black)
                     
                 Button("3") {
-                    current_number += "3"
-                    print("3 pressed")
+                    number_pressed(input_number: "3")
                 }
                     .frame(width:100, height: 100)
                     .background(Color.green)
@@ -45,8 +51,7 @@ struct ContentView: View {
             
             HStack {
                 Button("4") {
-                    current_number += "4"
-                    print("4 pressed")
+                    number_pressed(input_number: "4")
                 }
                     .frame(width:100, height:100)
                     .background(Color.green)
@@ -55,8 +60,7 @@ struct ContentView: View {
                     .foregroundColor(.black)
                 
                 Button("5") {
-                    current_number += "5"
-                    print("5 pressed")
+                    number_pressed(input_number: "5")
                 }
                     .frame(width:100, height:100)
                     .background(Color.green)
@@ -65,8 +69,7 @@ struct ContentView: View {
                     .foregroundColor(.black)
                 
                 Button("6") {
-                    current_number += "6"
-                    print("6 pressed")
+                    number_pressed(input_number: "6")
                 }
                     .frame(width:100,height:100)
                     .background(Color.green)
@@ -77,8 +80,7 @@ struct ContentView: View {
             
             HStack {
                 Button("7") {
-                    current_number += "7"
-                    print("7 pressed")
+                    number_pressed(input_number: "7")
                 }
                     .frame(width:100,height:100)
                     .background(Color.green)
@@ -87,8 +89,7 @@ struct ContentView: View {
                     .foregroundColor(.black)
                 
                 Button("8") {
-                    current_number += "8"
-                    print("8 pressed")
+                    number_pressed(input_number: "8")
                 }
                     .frame(width:100,height:100)
                     .background(Color.green)
@@ -97,8 +98,7 @@ struct ContentView: View {
                     .foregroundColor(.black)
                 
                 Button("9") {
-                    current_number += "9"
-                    print("9 pressed")
+                    number_pressed(input_number: "9")
                 }
                     .frame(width:100,height:100)
                     .background(Color.green)
@@ -165,14 +165,21 @@ struct ContentView: View {
 var current_number: String = ""
 var total_numbers: [String] = []
 var equal_pressed: Bool = false
-var output: Double = 0.0
+var output: String = ""
 
 var sign: [String] = []
+
+func number_pressed(input_number: String) {
+    current_number += input_number
+    output += input_number
+    print("\(input_number) pressed")
+}
 
 func sign_pressed(current_sign: String) {
     sign.append(current_sign)
     total_numbers.append(current_number)
     current_number = ""
+    output += current_sign
     print(total_numbers)
     print(sign)
     print("sign pressed log successfully executed")
